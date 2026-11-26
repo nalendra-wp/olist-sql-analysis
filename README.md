@@ -43,11 +43,11 @@ This is the SQL companion to the [Olist dashboard project](https://github.com/na
 
 ## How the data is prepared
 
-- 9 CSV files are loaded into SQLite, with indexes on the join keys.
-- Reviews are averaged **per order** first, because some orders have several reviews and joining them directly would duplicate rows.
-- `delivered_orders` (one row per order) and `delivered_items` (one row per item) filter to delivered orders with a delivery date, purchased Jan 2017 – Aug 2018.
-- **Validation:** the views return 109,872 items, 96,203 orders, and R$ 13,179,777.95 in revenue, matching the Python + Looker Studio project on the same data.
-- **Late** = delivered at least one full day after the estimated delivery date.
+- **Data loading.** 9 CSV files were imported into SQLite, with indexes created on the join keys to improve query performance.
+- **Review aggregation.** Reviews were averaged at the order level first, since some orders have multiple reviews. This prevents duplicate rows when joining review data.
+- **Data filtering.** The `delivered_orders` view contains one row per order, while `delivered_items` contains one row per item. Both views include delivered orders with a delivery date and purchases made between January 2017 and August 2018.
+- **Validation.** The views return 109,872 items, 96,203 orders, and R$ 13,179,777.95 in revenue, consistent with the Python and Looker Studio project using the same dataset.
+- **Late delivery.** An order is considered late if it was delivered at least one full day after the estimated delivery date.
 
 ## Limitations
 
